@@ -12,32 +12,34 @@ public class EvenNumbersIterator implements Iterator<Integer> {
         this.data = data;
     }
 
+    public boolean evenNumber(int i) {
+        return data[i] % 2 == 0;
+    }
+
     @Override
     public boolean hasNext() {
-       if (index < data.length) {
-          for (int i = index; i < data.length; i++) {
-               if (data[i] % 2 == 0) {
-                   return true;
-               }
-           }
-       }
-       return  false;
+        if (index < data.length) {
+            for (int i = index; i < data.length; i++) {
+                if (evenNumber(i)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Override
     public Integer next() {
-       Integer result = 0;
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
         for (int i = index; i < data.length; i++) {
             index++;
-            if (data[i] % 2 == 0) {
-               result = data[i];
-               break;
+            if (evenNumber(i)) {
+                break;
             }
         }
-        return result;
+        return data[index - 1];
     }
 
 }
