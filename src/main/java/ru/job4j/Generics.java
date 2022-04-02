@@ -19,14 +19,12 @@ public class Generics {
         gen.printObject(third);
         System.out.println();
 
-      //  gen.printBoundedWildCard(first);
         gen.printBoundedWildCard(second);
         gen.printBoundedWildCard(third);
         System.out.println();
 
         gen.printLowerBoundedWildCard(first);
         gen.printLowerBoundedWildCard(second);
-       // gen.printLowerBoundedWildCard(third);
     }
 
     public void printObject(List<?> list) {
@@ -36,15 +34,27 @@ public class Generics {
         }
     }
 
+    /**
+     * Метод выводит выводит элементы List. Но тк входной параметр ограничен
+     * сверху классом Predator, то объект класса Animal не может быть
+     * элементом этого List. Поэтому строка: gen.printBoundedWildCard(first);
+     * вызывает ошибку компиляции.
+     */
     public void printBoundedWildCard(List<? extends Predator> list) {
-        for (Iterator<? extends  Animal> it = list.iterator(); it.hasNext();) {
+        for (Iterator<? extends Predator> it = list.iterator(); it.hasNext();) {
             Object next = it.next();
             System.out.println("Текущий элемент: " + next);
         }
     }
 
+    /**
+     * Метод выводит выводит элементы List. Но тк входной параметр ограничен
+     * снизу классом Predator, то объект класса Tiger не может быть
+     * элементом этого List. Поэтому строка: gen.printLowerBoundedWildCard(third);
+     * вызывает ошибку компиляции
+     */
     public void printLowerBoundedWildCard(List<? super Predator> list) {
-        for (Iterator<? super Tiger> it = list.iterator(); it.hasNext();) {
+        for (Iterator<? super Predator> it = list.iterator(); it.hasNext();) {
             Object next = it.next();
             System.out.println("Текущий элемент: " + next);
         }
