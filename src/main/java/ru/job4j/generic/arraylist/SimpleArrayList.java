@@ -14,27 +14,30 @@ public class SimpleArrayList<T> implements List<T> {
         this.container = (T[]) new Object[capacity];
 }
 
+    private void increaseSize() {
+        int length = container.length == 0 ?  1 : container.length;
+        container = Arrays.copyOf(container, length * 2);
+    }
+
     @Override
     public void add(T value) {
-        if (size + 1 > container.length) {
-            container = Arrays.copyOf(container, container.length * 2);
+        if (size + 1 == container.length) {
+            increaseSize();
         }
         container[size++] = value;
         modCount++;
 }
 
     @Override
-    public T set(int index, T newValue) throws IndexOutOfBoundsException {
-        Objects.checkIndex(index, size);
-        T oldValue = container[index];
+    public T set(int index, T newValue) {
+        T oldValue = get(index);
         container[index] = newValue;
         return oldValue;
     }
 
     @Override
-    public T remove(int index) throws IndexOutOfBoundsException {
-        Objects.checkIndex(index, size);
-        T oldValue = container[index];
+    public T remove(int index) {
+        T oldValue = get(index);
         System.arraycopy(container, index + 1, container, index, container.length - index - 1);
         container[container.length - 1] = null;
         size--;
@@ -43,9 +46,9 @@ public class SimpleArrayList<T> implements List<T> {
     }
 
     @Override
-    public T get(int index) throws IndexOutOfBoundsException {
+    public T get(int index) {
         Objects.checkIndex(index, size);
-        return container[index];
+       return container[index];
     }
 
     @Override
