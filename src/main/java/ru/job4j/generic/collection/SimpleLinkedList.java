@@ -56,9 +56,9 @@ public class SimpleLinkedList<E> implements List<E> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                Node<E> next = after;
+                E rsl = after.value;
                 after = after.next;
-                return next.value;
+                return rsl;
             }
         };
     }
