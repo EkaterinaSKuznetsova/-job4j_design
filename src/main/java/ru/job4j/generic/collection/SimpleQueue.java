@@ -8,7 +8,6 @@ public class SimpleQueue<T> {
     private int size;
 
     public T poll() {
-        T rsl = null;
         if (in.getSize() == 0 && out.getSize() == 0) {
             throw new NoSuchElementException();
         }
@@ -17,11 +16,7 @@ public class SimpleQueue<T> {
                 out.push(in.pop());
             }
         }
-        if (out.getSize() != 0) {
-            rsl = out.pop();
-        }
-
-        return rsl;
+        return out.pop();
     }
 
     public void push(T value) {
