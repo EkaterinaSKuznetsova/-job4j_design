@@ -7,27 +7,17 @@ import java.util.List;
 public class ListUtils {
 
     public static <T> void addBefore(List<T> list, int index, T value) {
-        Objects.checkIndex(index, list.size());
-        ListIterator<T> iterator = list.listIterator();
-        while (iterator.hasNext()) {
-            if (iterator.nextIndex() == index) {
-                iterator.add(value);
-                break;
-            }
-            iterator.next();
-        }
+       ListIterator<T> iterator = list.listIterator(index);
+       if (iterator.nextIndex() == index) {
+           iterator.add(value);
+       }
     }
 
     public static <T> void addAfter(List<T> list, int index, T value) {
-        Objects.checkIndex(index, list.size());
-        ListIterator<T> iterator = list.listIterator();
-        while (iterator.hasNext()) {
-            if (iterator.nextIndex() == index) {
-                iterator.next();
-                iterator.add(value);
-                break;
-            }
+        ListIterator<T> iterator = list.listIterator(index);
+        if (iterator.nextIndex() == index) {
             iterator.next();
+            iterator.add(value);
         }
     }
 
@@ -51,19 +41,11 @@ public class ListUtils {
 
     public static <T> void removeAll(List<T> list, List<T> elements) {
         ListIterator<T> iteratorList = list.listIterator();
-        ListIterator<T> iteratorElement = elements.listIterator();
-        T current;
         while (iteratorList.hasNext()) {
-            current = iteratorList.next();
-            while (iteratorElement.hasNext()) {
-                if (current == iteratorElement.next()) {
-                    iteratorList.remove();
-                    break;
-                }
+            if (elements.contains(iteratorList.next())) {
+                iteratorList.remove();
             }
-            iteratorElement = elements.listIterator();
         }
-
     }
 }
 
