@@ -110,4 +110,29 @@ public class SimpleMapTest {
         Map<Integer, String> map = new SimpleMap<>();
         map.iterator().next();
     }
+
+    @Test
+    public void whenExpandMap() {
+        Map<Integer, String> map = new SimpleMap<>();
+        assertTrue(map.put(812, "Санкт - Петербург"));
+        assertTrue(map.put(499, "Москва"));
+        assertTrue(map.put(495, "Москва"));
+        assertTrue(map.put(111, "Воронеж"));
+        assertTrue(map.put(466, "Пенза"));
+        assertTrue(map.put(134, "Рыбинск"));
+        assertTrue(map.put(387, "Тверь"));
+        assertTrue(map.put(443, "Нижний Новгород"));
+        assertTrue(map.put(920, "Махачкала"));
+
+        Assert.assertEquals(map.get(812), "Санкт - Петербург");
+        Assert.assertEquals(map.get(495), "Москва");
+        Assert.assertEquals(map.get(499), "Москва");
+        Assert.assertEquals(map.get(111), "Воронеж");
+        Assert.assertEquals(map.get(466), "Пенза");
+        Assert.assertEquals(map.get(134), "Рыбинск");
+        Assert.assertEquals(map.get(387), "Тверь");
+        Assert.assertEquals(map.get(443), "Нижний Новгород");
+        Assert.assertEquals(map.get(920), "Махачкала");
+
+    }
 }
