@@ -1,5 +1,6 @@
 package ru.job4j.iostrem;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 public class ResultFile {
@@ -22,7 +23,7 @@ public class ResultFile {
                 }
                 out.write(System.lineSeparator().getBytes(StandardCharsets.UTF_8));
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
