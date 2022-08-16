@@ -19,11 +19,12 @@ public class Config {
     public void load() throws IllegalAccessException {
         try (BufferedReader in = new BufferedReader(new FileReader(path))) {
             for (String line = in.readLine(); line != null; line = in.readLine()) {
-                if (line.charAt(0) == '#' || line.charAt(0) == ' ') {
+                if (line.isBlank() || line.startsWith("#")) {
                     continue;
                 }
                 int index = line.indexOf('=');
                 if (index == -1 || index == line.length() - 1 || index == 0) {
+                    System.out.println("неправильный формат строки: " + line);
                     throw new IllegalAccessException();
                 }
                 values.put(line.substring(0, index), line.substring(index + 1));
