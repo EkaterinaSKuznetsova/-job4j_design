@@ -24,8 +24,7 @@ public class Config {
                 }
                 int index = line.indexOf('=');
                 if (index == -1 || index == line.length() - 1 || index == 0) {
-                    System.out.println("неправильный формат строки: " + line);
-                    throw new IllegalAccessException();
+                    throw new IllegalAccessException("неправильный формат строки: " + line);
                 }
                 values.put(line.substring(0, index), line.substring(index + 1));
             }
