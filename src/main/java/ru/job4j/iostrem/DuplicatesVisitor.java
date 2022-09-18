@@ -28,7 +28,7 @@ public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
         } else {
             mapFilesQuality.put(rsl, 1);
         }
-        mapFilePath.put(file.toAbsolutePath(),rsl);
+        mapFilePath.put(file.toAbsolutePath(), rsl);
         return super.visitFile(file, attrs);
     }
 
