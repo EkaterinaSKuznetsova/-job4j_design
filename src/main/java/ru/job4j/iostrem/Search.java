@@ -7,11 +7,23 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class Search {
+
     public static void main(String[] args) throws IOException {
-        Path start = Paths.get(".");
-        search(start, p -> p.toFile().getName().endsWith(".java")).forEach(System.out::println);
+        variable(args);
+        Path start = Paths.get(args[0]);
+        String extension = args[1];
+
+        search(start, p -> p.toFile().getName().endsWith(extension)).forEach(System.out::println);
     }
 
+    public static void variable(String[] programArg) {
+        if (programArg.length == 0) {
+            throw new IllegalArgumentException("Begin folder is null. Usage  BEGIN_FOLDER.");
+        }
+        if (programArg.length == 1) {
+            throw new IllegalArgumentException("Search extension is null. Usage  SEARCH_EXTENSION.");
+        }
+    }
     public static List<Path> search(Path root, Predicate<Path> condition) throws IOException {
         SearchFiles searcher = new SearchFiles(condition);
         Files.walkFileTree(root, searcher);
