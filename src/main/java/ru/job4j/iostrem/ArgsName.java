@@ -9,29 +9,32 @@ public class ArgsName {
 
     private final Map<String, String> values = new HashMap<>();
 
-    public String get(String key) throws IllegalArgumentException {
-       if (!values.containsKey(key)) {
-            throw new IllegalArgumentException("Incorrect number of argument");
-       }
-       return values.get(key);
+    public String get(String key) {
+        if (!values.containsKey(key)) {
+            throw new IllegalArgumentException("Key not found");
+        }
+        return values.get(key);
     }
 
-
-    private void parse(String[] args) throws IllegalArgumentException  {
+    private void parse(String[] args) {
         String[] res;
-        if (args.length == 0) {
-            throw new IllegalArgumentException("Incorrect number of argument");
-        }
         for (String arg : args) {
+            if (!arg.startsWith("-")) {
+                throw new IllegalArgumentException("Incorrect first argument in string: " + arg);
+            }
             res = arg.split("=", 2);
-            if (res.length != 2) {
-                throw new IllegalArgumentException("Incorrect number of argument");
+            if (res.length != 2 || res[0].isEmpty() || res[1].isEmpty()) {
+                throw new IllegalArgumentException("Incorrect argument in string: " + arg);
             }
             values.put(res[0].substring(1), res[1]);
         }
     }
 
+
     public static ArgsName of(String[] args) {
+        if (args.length == 0) {
+            throw new IllegalArgumentException("Incorrect number of argument");
+        }
         ArgsName names = new ArgsName();
         names.parse(args);
         return names;
